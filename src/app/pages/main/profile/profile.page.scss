@@ -1,0 +1,57 @@
+ion-content {
+    --ion-background-color: url(/assets/img/bg.gif);
+    --color: white;
+}
+
+
+.version{
+
+    font-size: 14px;
+}
+
+ion-card {
+    margin: 20px;
+    background: rgba(7, 7, 7, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+ion-avatar{
+
+    --border-radius: 10px;
+    width: 100%;
+    height: 100%;
+
+}
+.name{
+
+    font-size: 1.5em;
+
+    font-weight:bold;
+
+}
+
+ion-searchbar {
+
+    --background: rgba(7, 7, 7, 0.2);
+    max-width: 350px;
+    color: white;
+
+
+}
+
+.d-flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ion-card:hover {
+
+    cursor: pointer;
+    background: rgba(7, 7, 7, 0.485);
+
+}

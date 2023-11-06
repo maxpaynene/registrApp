@@ -1,0 +1,64 @@
+<ion-header mode="md">
+  <ion-toolbar>
+    <ion-title>
+      <div class="version">RegistrApp</div>
+      <Strong>Rick & Morty</Strong>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+
+  <div class="glass-content">
+
+    <ion-grid>
+
+      <ion-row>
+        <ion-col class="d-flex-center" size="12">
+
+          <ion-searchbar placeholder="Buscar" [(ngModel)]="params.name" (ionInput)="searchCharacters()" [debounce]="250" showCancelButton="always"></ion-searchbar>
+
+        </ion-col>
+        
+      </ion-row>
+
+      <ion-button (click)="routerlinkHome()" expand="block" fill="clear" shape="round">
+        Volver Al Home
+      </ion-button>
+
+      <ion-row>
+        <ion-col routerLink="/character-detail/{{c.id}}"  *ngFor="let c of characters" size="12" size-lg="6" size-sm="12" size-md="6">
+          <ion-card>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="ion-padding" size="12" size-lg="4" size-sm="4" size-md="4">
+                  <ion-avatar>
+                    <img [src]="c.image" />
+                  </ion-avatar>
+                </ion-col>
+                <ion-col class="ion-padding" size="12" size-lg="8" size-sm="8" size-md="8">
+                  <div class="name"> {{c.name}} </div>
+                </ion-col>
+                <p>Visto por primera vez: <br> <strong>{{c.origin.name}}</strong> </p>
+                <p>Visto por última vez: <br> <strong>{{c.location.name}}</strong> </p>
+              </ion-row>
+            </ion-grid>
+          </ion-card>
+        </ion-col>
+
+        
+        
+      </ion-row>
+    </ion-grid>
+
+    <ion-infinite-scroll threshold="25%"  position="bottom" (ionInfinite)="getCharacters($event)">
+      <ion-infinite-scroll-content>
+
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+
+  </div>
+
+
+</ion-content>
