@@ -11,58 +11,10 @@
     Api
   </ion-button>
 
-  <ion-header >
-    <ion-toolbar color="primary">
-      <ion-title>
-        QR & Bar Code
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-  
-    <ion-card class="ion-text-center">
-      <ion-card-header>
-        QR Code
-      </ion-card-header>
-      <ion-card-content>
-        <qrcode 
-          [qrdata]="qrCodeString" 
-          [width]="256" 
-          [errorCorrectionLevel]="'M'">
-        </qrcode>
-      </ion-card-content>
-    </ion-card>
-  
-    <!-- <ion-item *ngIf="scannedResult">
-      <ion-label class="ion-text-wrap">QR Code Scanned Result: {{scannedResult}}</ion-label>
-    </ion-item> -->
-  
-    <ion-card class="ion-text-center">
-      <ion-card-header>
-        Bar Code
-      </ion-card-header>
-      <ion-card-content>
-        <img id="barcode"/>
-      </ion-card-content>
-    </ion-card>
-  
-    <ion-item *ngIf="scannedResult">
-      <ion-label class="ion-text-wrap">Scanned Result: {{scannedResult}}</ion-label>
-    </ion-item>
-  
-    <ion-button 
-      expand="block" 
-      class="ion-margin" 
-      (click)="startScan()">
-      Scan
-    </ion-button>
-    
-  </ion-content>
-
-
 </ion-content>
 
+<div *ngIf="divPhoto" id="reader" width="100%" height="100%"></div>
+<a [href]="hrefUrl">{{hrefUrl}}</a>
 
 <ion-tab-bar slot="bottom">
   <ion-tab-button (click)="takeImage()"  tab="camera">
