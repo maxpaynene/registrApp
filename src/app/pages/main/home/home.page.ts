@@ -1,11 +1,4 @@
-import {
-  Component,
-  Inject,
-  Injectable,
-  Input,
-  OnInit,
-  inject,
-} from "@angular/core";
+import { Component, Input, OnInit, inject } from "@angular/core";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UtilsService } from "src/app/services/utils.service";
 import { AddUpdateStudentsComponent } from "src/app/shared/components/add-update-students/add-update-students.component";
@@ -21,9 +14,11 @@ export class HomePage implements OnInit {
   utilsSvc = inject(UtilsService);
   divPhoto: boolean = false;
   html5QrcodeScanner: Html5QrcodeScanner;
-  @Input() hrefUrl: string = "";
+  @Input() hrefUrl: string;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.hrefUrl = "1";
+  }
 
   signOut() {
     this.firebaseSvc.signOut();
@@ -41,34 +36,36 @@ export class HomePage implements OnInit {
     this.delay(1000).then(() => {
       this.html5QrcodeScanner = new Html5QrcodeScanner(
         "reader",
-        { fps: 30, qrbox: { width: 250, height: 250 } },
+        { fps: 30, qrbox: { width: 350, height: 350 } },
         /* verbose= */ false
       );
       this.html5QrcodeScanner.render(this.onScanSuccess, this.onScanFailure);
     });
   }
 
-  routerlinkIntro() {
-    this.utilsSvc.routerLink("/main/intro");
-  }
-
   onScanSuccess(decodedText, decodedResult) {
     document.getElementById("html5-qrcode-button-camera-stop").click();
-    console.log(decodedText);
-    console.log(decodedResult);
-    this.hrefUrl = decodedText;
-    console.log(this.hrefUrl);
-    //console.log(document.getElementById("#hrefUrl"));
-    //document.getElementById("#hrefUrl").click();
+    const href_qr = document.getElementById("href-qr") as HTMLElement;
+    href_qr.setAttribute("href", decodedText);
+    href_qr.click();
   }
 
   onScanFailure(error) {
     console.warn(`Code scan error = ${error}`);
   }
 
-  private setDivPhoto = async (b: boolean) => (this.divPhoto = b);
+  private setDivPhoto = (b: boolean) => (this.divPhoto = b);
+
+  public setHrefUrl = (s: string) => {
+    console.log(s);
+    this.hrefUrl = s;
+  };
 
   delay(time) {
     return new Promise((resolve) => setTimeout(resolve, time));
+  }
+
+  routerlinkIntro() {
+    this.utilsSvc.routerLink("/main/intro");
   }
 }
