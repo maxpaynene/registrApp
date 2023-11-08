@@ -3,6 +3,7 @@ import { User } from "src/app/models/user.model";
 import { FirebaseService } from "src/app/services/firebase.service";
 import { UtilsService } from "src/app/services/utils.service";
 import QRCode from "qrcode";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-add-update-students",
@@ -22,8 +23,12 @@ export class AddUpdateStudentsComponent implements OnInit {
   }
 
   getQr() {
-    const URI = "192.168.0.144:5500/index.html";
-    QRCode.toDataURL(`http://${URI}?uuid=${this.user?.uid}` || "")
+    const URI = "dainty-selkie-8b11a6.netlify.app/";
+    QRCode.toDataURL(
+      `https://${URI}?uuid=${this.user?.uid}&jsonConfig=${JSON.stringify(
+        environment.firebaseConfig
+      )}` || ""
+    )
       .then((url) => (this.src = url))
       .catch((err) => {
         console.error(err);

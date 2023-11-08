@@ -1,18 +1,18 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/models/user.model';
-import { FirebaseService } from 'src/app/services/firebase.service';
-import { UtilsService } from 'src/app/services/utils.service';
+import { Component, OnInit, inject } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { User } from "src/app/models/user.model";
+import { FirebaseService } from "src/app/services/firebase.service";
+import { UtilsService } from "src/app/services/utils.service";
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.page.html',
-  styleUrls: ['./auth.page.scss'],
+  selector: "app-auth",
+  templateUrl: "./auth.page.html",
+  styleUrls: ["./auth.page.scss"],
 })
 export class AuthPage implements OnInit {
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", [Validators.required]),
   });
 
   firebaseSvc = inject(FirebaseService);
@@ -36,9 +36,9 @@ export class AuthPage implements OnInit {
           this.utilsSvc.presentToast({
             message: error.message,
             duration: 2500,
-            color: 'primary',
-            position: 'middle',
-            icon: 'alert-circle-outline',
+            color: "primary",
+            position: "middle",
+            icon: "alert-circle-outline",
           });
         })
         .finally(() => {
@@ -55,21 +55,19 @@ export class AuthPage implements OnInit {
       let path = `users/${uid}`;
       delete this.form.value.password;
 
-      console.log(this.firebaseSvc.getDocument(path));
-
       this.firebaseSvc
         .getDocument(path)
         .then((user: User) => {
-          this.utilsSvc.saveInLocalStorage('user', user);
-          this.utilsSvc.routerLink('/main/home');
+          this.utilsSvc.saveInLocalStorage("user", user);
+          this.utilsSvc.routerLink("/main/home");
           this.form.reset();
 
           this.utilsSvc.presentToast({
             message: `Te damos la bienvenida ${user.name}`,
             duration: 1500,
-            color: 'primary',
-            position: 'middle',
-            icon: 'person-circle-outline',
+            color: "primary",
+            position: "middle",
+            icon: "person-circle-outline",
           });
         })
         .catch((error) => {
@@ -78,9 +76,9 @@ export class AuthPage implements OnInit {
           this.utilsSvc.presentToast({
             message: error.message,
             duration: 2500,
-            color: 'primary',
-            position: 'middle',
-            icon: 'alert-circle-outline',
+            color: "primary",
+            position: "middle",
+            icon: "alert-circle-outline",
           });
         })
         .finally(() => {
